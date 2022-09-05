@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Mandiri - 3</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/alertify/css/alertifi.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card navbar">
+                    <div class="card-body">
+                        <ul>
+                            <a href="../1/index.html" class="button" data-toggle="tooltip" data-placement="top"
+                                title="#1 - Menyatakan Panjang Sisi Sebuah Segitiga">
+                                <li>
+                                    <i class="uil uil-triangle"></i>
+                                </li>
+                            </a>
+                            <a href="../2/index.html" class="button" data-toggle="tooltip" data-placement="top"
+                                title="#2 - Menyatakan Nilai Ujian">
+                                <li>
+                                    <i class="uil uil-book-alt"></i>
+                                </li>
+                            </a>
+                            <a href="javascript:void(0)" class="button active" data-toggle="tooltip"
+                                data-placement="top" title="#3 - Menentukan lama bekerja seorang pegawai">
+                                <li>
+                                    <i class="uil uil-user-md"></i>
+                                </li>
+                            </a>
+                            <a href="../4/index.html" class="button" data-toggle="tooltip" data-placement="top"
+                                title="#4 - Menghitung berapa harga setelah didiskon">
+                                <li>
+                                    <i class="uil uil-box"></i>
+                                </li>
+                            </a>
+                            <a href="../5/index.html" class="button" data-toggle="tooltip" data-placement="top"
+                                title="#5 - Menginput data nilai matakuliah">
+                                <li>
+                                    <i class="uil uil-books"></i>
+                                </li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        Menentukan lama bekerja seorang pegawai
+                    </div>
+
+                    <div class="card-body">
+
+                        <div id="error" class="alert alert-danger" role="alert" style="display: none;">
+                            Harus berupa angka!
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="jam_masuk" class="col-3 col-form-label">JAM MASUK</label>
+                            <div class="col-9">
+                                <input id="jam_masuk" type="text" class="form-control" placeholder="Jam masuk pegawai.."
+                                    onkeypress="return harusAngka(event);" ondrop="return false;"
+                                    onpaste="return false;" />
+                                <span id="error" class="invalid-feedback m-0">Harus berupa angka!</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="jam_keluar" class="col-3 col-form-label">JAM KELUAR</label>
+                            <div class="col-9">
+                                <input id="jam_keluar" type="text" class="form-control"
+                                    placeholder="Jam keluar pegawai.." onkeypress="return harusAngka(event);"
+                                    ondrop="return false;" onpaste="return false;" />
+                                <span id="error" class="invalid-feedback m-0">Harus berupa angka!</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button id="showOutput" class="btn btn-info">SUBMIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/jquery/jquery.min.js"></script>
+    <script src="../assets/alertify/js/alertify.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/main.js"></script>
+
+    <script type="text/javascript">
+        let angka = new Array();
+        angka.push(8);
+
+        function harusAngka(e) {
+            let keyCode = e.which ? e.which : e.keyCode;
+            let ret = ((keyCode >= 48 && keyCode <= 57) || angka.indexOf(keyCode) != -1);
+            document.getElementById('error').style.display = ret ? 'none' : 'block';
+            return ret;
+        }
+
+        $(document).ready(function () {
+            $('button').on('click', function (e) {
+                e.preventDefault();
+
+                let jam_masuk = $('#jam_masuk').val();
+                let jam_keluar = $('#jam_keluar').val();
+                let hasil;
+
+                if (jam_masuk != '' && jam_keluar != '') {
+
+                    // asli ngebingungin
+                    if (jam_keluar >= jam_masuk) {
+                        hasil = jam_keluar - jam_masuk;
+                    } else {
+                        hasil = jam_keluar - jam_masuk + 12;
+                    }
+
+                    alertify.okBtn("OK").alert('Lama bekerja ' + hasil + ' jam');
+
+                    // $('#jam_masuk').val('');
+                    // $('#jam_keluar').val('');
+                } else {
+                    alertify.error('Silahkan diisi semua inputnya!').delay(3000);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

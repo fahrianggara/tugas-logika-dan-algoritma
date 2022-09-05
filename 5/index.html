@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Mandiri - 5</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/alertify/css/alertifi.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card navbar">
+                    <div class="card-body">
+                        <ul>
+                            <a href="../1/index.html" class="button" data-toggle="tooltip" data-placement="top"
+                                title="#1 - Menyatakan Panjang Sisi Sebuah Segitiga">
+                                <li>
+                                    <i class="uil uil-triangle"></i>
+                                </li>
+                            </a>
+                            <a href="../2/index.html" class="button" data-toggle="tooltip" data-placement="top"
+                                title="#2 - Menyatakan Nilai Ujian">
+                                <li>
+                                    <i class="uil uil-book-alt"></i>
+                                </li>
+                            </a>
+                            <a href="../3/index.html" class="button" data-toggle="tooltip"
+                                data-placement="top" title="#3 - Menentukan lama bekerja seorang pegawai">
+                                <li>
+                                    <i class="uil uil-user-md"></i>
+                                </li>
+                            </a>
+                            <a href="../4/index.html" class="button " data-toggle="tooltip" data-placement="top"
+                                title="#4 - Menghitung berapa harga setelah didiskon">
+                                <li>
+                                    <i class="uil uil-box"></i>
+                                </li>
+                            </a>
+                            <a href="javascript:void(0)" class="button active" data-toggle="tooltip" data-placement="top"
+                                title="#5 - Menginput data nilai matakuliah">
+                                <li>
+                                    <i class="uil uil-books"></i>
+                                </li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        Menginput data nilai matakuliah
+                    </div>
+
+                    <div class="card-body">
+
+                        <div id="error" class="alert alert-danger" role="alert" style="display: none;">
+                            Harus berupa angka!
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="matakuliah" class="col-3 col-form-label">Matakuliah</label>
+                            <div class="col-9">
+                                <input id="matakuliah" type="text" class="form-control"
+                                    placeholder="Masukkan Matakuliah.." />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="sks" class="col-3 col-form-label">SKS</label>
+                            <div class="col-9">
+                                <input id="sks" type="text" class="form-control" placeholder="Masukkan SKS.."
+                                    onkeypress="return harusAngka(event);" ondrop="return false;"
+                                    onpaste="return false;" />
+                                <span id="error" class="invalid-feedback m-0">Harus berupa angka!</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nilai" class="col-3 col-form-label">NILAI</label>
+                            <div class="col-9">
+                                <input id="nilai" type="text" class="form-control" placeholder="Masukkan NILAI.."
+                                    onkeypress="return harusAngka(event);" ondrop="return false;"
+                                    onpaste="return false;" />
+                                <span id="error" class="invalid-feedback m-0">Harus berupa angka!</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button id="showOutput" class="btn btn-info">SUBMIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/jquery/jquery.min.js"></script>
+    <script src="../assets/alertify/js/alertify.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/main.js"></script>
+
+    <script type="text/javascript">
+        let angka = new Array();
+        angka.push(8);
+
+        function harusAngka(e) {
+            let keyCode = e.which ? e.which : e.keyCode;
+            let ret = ((keyCode >= 48 && keyCode <= 57) || angka.indexOf(keyCode) != -1);
+            document.getElementById('error').style.display = ret ? 'none' : 'block';
+            return ret;
+        }
+
+        $(document).ready(function () {
+            $('button').on('click', function (e) {
+                e.preventDefault();
+
+                let matakuliah = $('#matakuliah').val();
+                let sks = $('#sks').val();
+                let nilai = $('#nilai').val();
+                let huruf,
+                    angkaMutu,
+                    sebutanMutu,
+                    text;
+
+                if (matakuliah != '' && sks != '' && nilai != '') {
+
+                    if (nilai >= 85) {
+                        huruf = 'A.';
+                        angkaMutu = '4.00';
+                        sebutanMutu = 'Dengan Pujian';
+                        text = 'Selamat! Kamu mendapatkan Nilai ' + nilai + ' dari Matakuliah ' + matakuliah + ' dengan Grade ' + huruf + "<br> <br>" + sebutanMutu;
+                    } else if (nilai >= 80) {
+                        huruf = 'A-.';
+                        angkaMutu = '3.75';
+                        sebutanMutu = 'Sangat Baik Sekali';
+                        text = 'Selamat! Kamu mendapatkan Nilai ' + nilai + ' dari Matakuliah ' + matakuliah + ' dengan Grade ' + huruf + "<br> <br>" + sebutanMutu;
+                    } else if (nilai >= 75) {
+                        huruf = 'B+.';
+                        angkaMutu = '3.50';
+                        sebutanMutu = 'Baik Sekali';
+                        text = 'Selamat! Kamu mendapatkan Nilai ' + nilai + ' dari Matakuliah ' + matakuliah + ' dengan Grade ' + huruf + "<br> <br>" + sebutanMutu;
+                    } else if (nilai >= 70) {
+                        huruf = 'B.';
+                        angkaMutu = '3.00';
+                        sebutanMutu = 'Baik';
+                        text = 'Selamat! Kamu mendapatkan Nilai ' + nilai + ' dari Matakuliah ' + matakuliah + ' dengan Grade ' + huruf + "<br> <br>" + sebutanMutu;
+                    } else if (nilai >= 65) {
+                        huruf = 'B-.';
+                        angkaMutu = '2.75';
+                        sebutanMutu = 'Cukup Baik';
+                        text = 'Selamat! Kamu mendapatkan Nilai ' + nilai + ' dari Matakuliah ' + matakuliah + ' dengan Grade ' + huruf + "<br> <br>" + sebutanMutu;
+                    } else if (nilai >= 60) {
+                        huruf = 'C+.';
+                        angkaMutu = '2.50';
+                        sebutanMutu = 'Lebih Dari Cukup';
+                        text = 'Selamat! Kamu mendapatkan Nilai ' + nilai + ' dari Matakuliah ' + matakuliah + ' dengan Grade ' + huruf + "<br> <br>" + sebutanMutu;
+                    } else if (nilai >= 55) {
+                        huruf = 'C.';
+                        angkaMutu = '2.00';
+                        sebutanMutu = 'Cukup';
+                        text = 'Selamat! Kamu mendapatkan Nilai ' + nilai + ' dari Matakuliah ' + matakuliah + ' dengan Grade ' + huruf + "<br> <br>" + sebutanMutu;
+                    } else if (nilai >= 40) {
+                        huruf = 'D.';
+                        angkaMutu = '1.00';
+                        sebutanMutu = 'Kurang';
+                        text = 'Nice try! nilai dari Matakuliah ' + matakuliah + ' kamu ' + nilai + ', dengan Grade ' + huruf + "<br> <br>" + sebutanMutu;
+                    } else if (nilai <= 40) {
+                        huruf = 'E.';
+                        angkaMutu = '0.00';
+                        sebutanMutu = 'Gagal';
+                        text = 'Maaf! kamu Gagal dalam Matakuliah ' + matakuliah + ' dan nilai matakuliah kamu ' + nilai + ' dengan Grade ' + huruf + "<br> <br>" + sebutanMutu;
+                    } else {
+                        huruf = 'T.';
+                        angkaMutu = '-';
+                        sebutanMutu = 'Tunda';
+                        text = "Tertunda!";
+                    }
+
+                    alertify.okBtn("OK").alert(text);
+                    
+                } else {
+                    alertify.error('Silahkan diisi semua inputnya!').delay(3000);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

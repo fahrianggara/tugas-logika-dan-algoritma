@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Mandiri - 4</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/alertify/css/alertifi.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card navbar">
+                    <div class="card-body">
+                        <ul>
+                            <a href="../1/index.html" class="button" data-toggle="tooltip" data-placement="top"
+                                title="#1 - Menyatakan Panjang Sisi Sebuah Segitiga">
+                                <li>
+                                    <i class="uil uil-triangle"></i>
+                                </li>
+                            </a>
+                            <a href="../2/index.html" class="button" data-toggle="tooltip" data-placement="top"
+                                title="#2 - Menyatakan Nilai Ujian">
+                                <li>
+                                    <i class="uil uil-book-alt"></i>
+                                </li>
+                            </a>
+                            <a href="../3/index.html" class="button" data-toggle="tooltip"
+                                data-placement="top" title="#3 - Menentukan lama bekerja seorang pegawai">
+                                <li>
+                                    <i class="uil uil-user-md"></i>
+                                </li>
+                            </a>
+                            <a href="javascript:void(0)" class="button active" data-toggle="tooltip" data-placement="top"
+                                title="#4 - Menghitung berapa harga setelah didiskon">
+                                <li>
+                                    <i class="uil uil-box"></i>
+                                </li>
+                            </a>
+                            <a href="../5/index.html" class="button" data-toggle="tooltip" data-placement="top"
+                                title="#5 - Menginput data nilai matakuliah">
+                                <li>
+                                    <i class="uil uil-books"></i>
+                                </li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        Menghitung berapa harga setelah didiskon
+                    </div>
+
+                    <div class="card-body">
+
+                        <div id="error" class="alert alert-danger" role="alert" style="display: none;">
+                            Harus berupa angka!
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="kode_barang" class="col-3 col-form-label">KODE BARANG</label>
+                            <div class="col-9">
+                                <input id="kode_barang" type="text" class="form-control"
+                                    placeholder="Masukkan kode barang.." onkeypress="return harusAngka(event);"
+                                    ondrop="return false;" onpaste="return false;" />
+                                <span id="error" class="invalid-feedback m-0">Harus berupa angka!</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="jenis_barang" class="col-3 col-form-label">JENIS BARANG</label>
+                            <div class="col-9">
+                                <select id="jenis_barang" class="form-control">
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="harga_barang" class="col-3 col-form-label">HARGA BARANG</label>
+                            <div class="col-9">
+                                <input id="harga_barang" type="text" class="form-control"
+                                    placeholder="Masukkan harga barang.." onkeypress="return harusAngka(event);"
+                                    ondrop="return false;" onpaste="return false;" />
+                                <span id="error" class="invalid-feedback m-0">Harus berupa angka!</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button id="showOutput" class="btn btn-info">SUBMIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/jquery/jquery.min.js"></script>
+    <script src="../assets/alertify/js/alertify.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/main.js"></script>
+
+    <script type="text/javascript">
+        let angka = new Array();
+        angka.push(8);
+
+        function harusAngka(e) {
+            let keyCode = e.which ? e.which : e.keyCode;
+            let ret = ((keyCode >= 48 && keyCode <= 57) || angka.indexOf(keyCode) != -1);
+            document.getElementById('error').style.display = ret ? 'none' : 'block';
+            return ret;
+        }
+
+        $(document).ready(function () {
+            $('button').on('click', function (e) {
+                e.preventDefault();
+
+                let jenis_barang = $('#jenis_barang').val();
+                let kode_barang = $('#kode_barang').val();
+                let harga_barang = $('#harga_barang').val();
+                let diskon, hDiskon;
+                let hasil;
+
+                if (jenis_barang != '' && kode_barang != '' && harga_barang != '') {
+
+                    switch (jenis_barang) {
+                        case 'A':
+                            diskon = 10;
+                            hDiskon = harga_barang - (.10 * harga_barang);
+                            break;
+                        case 'B':
+                            diskon = 15;
+                            hDiskon = harga_barang - (.15 * harga_barang);
+                            break;
+                        case 'C':
+                            diskon = 20;
+                            hDiskon = harga_barang - (.20 * harga_barang);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    alertify.okBtn("OK").alert('Jenis barang ' + jenis_barang + ' mendapat diskon = ' + diskon + '%,' + ' Harga setelah didiskon = ' + hDiskon);
+
+                    // $('#jenis_barang').val('');
+                    // $('#kode_barang').val('');
+                    // $('#harga_barang').val('');
+                } else {
+                    alertify.error('Silahkan diisi semua inputnya!').delay(3000);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
